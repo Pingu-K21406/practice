@@ -105,4 +105,4 @@ elif len(ct) == n:
 else:
     for i in range(len(ct)):
         print(mon[ct[i]], end=" ")
-print("Học hành như cái nịt thế này thì về quê chăn bò")
+       
