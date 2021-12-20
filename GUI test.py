@@ -20,6 +20,7 @@ frame3.pack(pady=10)
 
 frame4 = Frame(window)
 frame4.pack(pady=20)
+
 #Tạo nhãn
 Stt = Label(frame0, text="STT")
 Stt.pack(padx=4, side=LEFT)
@@ -125,8 +126,6 @@ def capnhat():
     print(mon)
 
     KQ1.config(text="hihi")
-
-
 
 nut_xoa = Button(frame3, text="Xóa", command=xoa, state=DISABLED)
 nut_them = Button(frame3, text="Thêm", command=them)
