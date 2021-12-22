@@ -16,10 +16,10 @@ frame2 = Frame(window)
 frame2.pack(pady=10)
 
 frame3 = Frame(window)
-frame3.pack(pady=10)
+frame3.pack()
 
 frame4 = Frame(window)
-frame4.pack(pady=20)
+frame4.pack(pady=10)
 
 #Tạo nhãn
 Stt = Label(frame0, text="STT")
@@ -55,12 +55,19 @@ listdiem = Listbox(frame1, width=5, height=5, font=('Arial',10), justify="center
                   selectbackground="#9529cf", activestyle="none", exportselection=0, yscrollcommand=scrollball.set)
 listdiem.pack(side=LEFT)
 
-#Tạo trước nội dung kết quả
-KQ1 = Label(frame4, text="")
+#Khung kết quả
+
+KQ1 = Label(frame4, text="", justify=LEFT)
 KQ1.pack()
 
-KQ2 = Label(frame4, text="")
+KQ2 = Label(frame4, text="", justify=LEFT)
 KQ2.pack()
+
+KQ3 = Label(frame4, text="", justify=LEFT)
+KQ3.pack()
+
+KQ4 = Label(frame4, text="", justify=LEFT)
+KQ4.pack()
 
 #Cấu hình thanh lăn
 def multiview(*args):
@@ -121,15 +128,42 @@ def xoa():
         nut_capnhat['state'] = DISABLED
 
 def capnhat():
-    print(diem)
-    print(tc)
-    print(mon)
+    # Hàm tính điểm trung bình
+    def tongdiem(a, b):
+        c = 0
+        for l in range(len(diem)):
+            c = c + a[l]*tc[l]
+        c = (c / sum(b))
+        return c
 
-    KQ1.config(text="hihi")
+    # Hàm xếp loại
+    def xeploai(z):
+        if (z >= 9) and (z <= 10):
+            return("Xếp loại: Xuất sắc")
+        elif (z >= 8):
+            return("Xếp loại: Giỏi")
+        elif (z >= 7):
+            return("Xếp loại: Khá")
+        elif (z >= 6):
+            return("Xếp loại: Trung bình khá")
+        elif (z >= 5):
+            return ("Xếp loại: Trung bình")
+        elif (z >= 4):
+            return("Xếp loại: Yếu")
+        elif (z < 4) and (z >= 0):
+            return("Xếp loại: Kém")
+
+    # Phần tính điểm và xếp loại
+    trungbinh= round(tongdiem(diem, tc), 2)
+
+    KQ1.config(text="Điểm trung bình: "+str(trungbinh))
+    KQ2.config(text=xeploai(trungbinh))
+    KQ3.config(text="Môn có thành tích tốt nhất: " + str(mon[diem.index(max(diem))]))
+    KQ4.config(text="Môn cần cải thiện nhiều nhất: " + str(mon[diem.index(min(diem))]))
 
 nut_xoa = Button(frame3, text="Xóa", command=xoa, state=DISABLED)
 nut_them = Button(frame3, text="Thêm", command=them)
-nut_capnhat = Button(frame3, text="Cập nhật điểm", command=capnhat, state=DISABLED)
+nut_capnhat = Button(frame3, text="Kết quả", command=capnhat, state=DISABLED)
 
 nut_xoa.grid(row=0, column=0, padx=20)
 nut_them.grid(row=0, column=1, padx=20)
